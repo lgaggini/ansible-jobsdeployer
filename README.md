@@ -17,7 +17,7 @@ git clone https://github.com/lgaggini/ansible-jobsdeployer.git
 ```
 ## Configuration
 
-The configuration is done by vars listed and explained in [defaults/main.yml](https://github.com/lgaggini/ansible-jobadeployer/blob/master/defaults/main.yml) file.
+The configuration is done by vars listed and explained in [defaults/main.yml](https://github.com/lgaggini/ansible-jobsdeployer/blob/master/defaults/main.yml) file.
 
 ## Usage
 
