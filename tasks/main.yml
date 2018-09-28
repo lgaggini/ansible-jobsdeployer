@@ -1,0 +1,29 @@
+---
+
+- name: jobsdeployer | create user for jobs
+  group: name={{ jobs_group }} state=present
+
+- name: jobsdeployer | create user for jobs
+  user: name={{ jobs_user }} group={{ jobs_group }} home={{ jobs_home }} shell=/bin/bash state=present
+
+- name: jobsdeployer | retrieve application from git
+  git: repo={{ item.repo }} dest={{ jobs_home }}/{{ item.name }}
+  with_items: "{{ jobs_project }}"
+
+- name: jobsdeployer | install requirements and create venv for python
+  pip: virtualenv={{ jobs_home }}/.virtualenvs/{{ item.name }} requirements={{ jobs_home }}/{{ item.name }}/requirements.txt
+  with_items: "{{ jobs_project }}"
+  when: item.python
+
+- name: jobsdeployer | install general package requirements
+  apt: name={{ item.1 }}  state=present update_cache=yes
+  with_subelements:
+    - "{{ jobs_project }}"
+    - required_pkgs
+
+- name: jobsdeployer | set jobs home ownership
+  file: path={{ jobs_home }} owner={{ jobs_user }} group={{ jobs_group }} state=directory recurse=yes
+
+- name: jobsdeployer | scheduled jobs
+  cron: name={{item.name}} minute={{ item.minute }} hour={{ item.hour }} day={{ item.day }} month={{ item.month}} weekday={{ item.weekday }} user={{ jobs_user }} job={{ item.cmd }} state=present
+  with_items: "{{ jobs_scheduled }}"

@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  role_name: ansible-jobsdeployer
+  author: lgaggini
+  description: ansible-jobsdeployer is an Ansible role to install and configure jobs on a debian based OS
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+   - name: Debian
+     versions:
+     - all
+   - name: Ubuntu
+     versions:
+     - all
+  galaxy_tags:
+    - system
+    - cron
+    - jobs
+    - automation

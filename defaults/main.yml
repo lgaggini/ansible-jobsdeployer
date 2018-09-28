@@ -1,0 +1,24 @@
+---
+# jobs user and group to run and install jobs
+jobs_user: jobs
+jobs_group: jobs
+
+# jobs home
+jobs_home: /srv/jobs
+
+# project for the jobs to be deployed
+jobs_project:
+  - name: my_project
+    repo: my_repo_url
+    python: false
+    required_pkgs: [python]
+
+# jobs to be scheduled in cron
+jobs_scheduled:
+  - name: my_project
+    minute: "*"
+    hour: /4
+    day: "*"
+    month: "*"
+    weekday: "*"
+    cmd: "/srv/jobs/my_project/run"
